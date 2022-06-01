@@ -16365,3 +16365,1010 @@ DONE:
 - Linked Lists:
 - Sorting
 
+
+
+
+
+
+
+Date : 30th May 2022
+Mentor: DEVANG SHARMA
+Batch: March Batch 2 - DRACO
+
+Agenda:
+
+(1) Introduction to Linked List- DONE
+(2) Linked List vs Array - DONE
+(3) Linked List Insertion - DONE
+(4) TRAVERSAL: Printing Linked List - DONE
+(5) Calculate Length -- Iterative - DONE
+(6) Calculate Length -- Recursive - HW()- DONE
+(7) Search in a Linked List -- Iterative, Recursive -- DONE
+(8) Delete a Linked List - DONE
+(9) Nth Node in a Linked List -- DONE
+(10) Kth Node from End in Linked List -- Two Approaches (Two Traversals and Single Traversal)
+(11) Middle of Linked List -- Two Approaches (Two Traversals and Single Traversals)
+(12) Detect Cycle in a Linked List - With Hashing - DONE
+(13) Detect Cycle in a Linked List - Without Hashing - DONE
+(14) Sorting Algos - DONE
+- Max Prod Subarray: LC: DONE
+
+TODO:
+- Assignment Questions: DONE
+- Dynamic Programming
+- OOPS
+
+"Please Type 'Hi' in the Chat Box if you have joined and Can See this Screen".
+
+
+
+
+
+
+
+3rd June: Informal Session (45 Mins - 1 Hr)
+5th June: Contest (Sunday - Shuffling) 
+9th June: Shuffling
+Till 10th June: Classes 
+
+DSA1: DONE
+DSA2: DONE
+
+DSA3: Advanced DSA
+- DP (Dynamic Programming)
+- Backtracking
+- Trees
+- Graphs
+
+FE: HTML, CSS, JS, React, Redux
+BE: Sql, Nodejs, MongodB
+
+Placement: 2 Months
+
+
+Big Tech: Specialists - BE, FE, Full Stack
+
+Startups: Generalists - SWE
+
+Salary: 3 Yrs: SDE -1:2
+
+Product: 
+
+
+
+
+- Assignment Questions
+
+
+
+
+
+
+Q: Bit Manipulation - In Class - Minimize XOR
+
+Minimize XOR
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+
+Problem Statement
+
+Given an integer array A of N integers, 
+find the pair of integers in the array which have minimum XOR value. 
+Report the minimum XOR value.
+
+Input
+
+First line denotes N, the size of the array.
+Next line denotes N space-separated array elements.
+
+Constraints:
+2 <= N <= 100000
+0 <= A[i] <= 10^7
+
+Output
+
+Print a single integer denoting minimum xor value
+Example
+
+Sample Input
+4
+0 2 5 7
+
+Sample Output
+2
+
+Explanation:
+0 xor 2 = 2
+
+Sample Input
+
+4
+0 4 7 9
+
+Sample Output
+3
+
+
+
+
+
+
+Solutions:
+
+
+(1) Brute Force Solution: Two Nested Loops
+
+- For Each pair, Calculate XOR and Find the Minimum
+
+TC: O(N^2)
+SC: O(1)
+
+
+(2) Optimised Solution:
+A ^ A = 0: Min
+
+Same Input, XOR = 0
+Diff Input, XOR = 1
+
+A ^ B: Min: A == B
+
+
+A close to B: Min XOR - Intuition
+A far from B: Max XOR
+
+
+
+
+Sort the Array: 
+(1) All Close Elements will become together
+(2) Iterate Over Adjacent values and find the Min XOR
+
+
+a = [5 2 0 7]
+After Sorting: [0 2 5 7]
+
+Min XOR: 0^2 = 2
+
+
+Approach:
+
+(1) Sort the Array
+(2) Calculate: arr[i] ^ arr[i+1]: Contiguous Values
+(3) Find Minimum
+
+TC: O(NlogN)
+SC: O(1)
+
+
+CODE:
+
+
+import java.io.*; // for handling input/output
+import java.util.*; // contains Collections framework
+
+class Main {
+    static int minXOR(int [] A, int N) 
+    {
+        Arrays.sort(A);  // for sorting the array
+        int minimumxor = Integer.MAX_VALUE;
+        int value = 0;
+        for(int i=0; i<N-1; i++) {
+            value = A[i]^A[i+1];
+            minimumxor = Math.min(minimumxor, value);  // to find minimum pair
+        }
+        return minimumxor;
+    }
+
+    public static void main (String[] args) 
+    {
+        Scanner input = new Scanner(System.in);
+        int N = input.nextInt();
+        int [] A = new int[N];
+
+        for(int i=0; i<N; i++) {
+            A[i] = input.nextInt();
+        }
+        
+        System.out.println(minXOR(A, N));
+    }
+}
+
+
+TC: O(NlogN)
+SC: O(1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+IMP:
+Q: Two Pointers - In Class - Max subarray sum (size K)
+https://my.newtonschool.co/playground/code/x8oof6sc2xnx/
+
+
+Max subarray sum (size K)
+
+Time Limit: 2 sec
+Memory Limit: 128000 kB
+
+Problem Statement
+Given an array of integers A and a number K, 
+find maximum sum of a subarray of size K.
+
+Input
+The first line of input contains two integers N and K, denoting the number of elements in the array and the subarray size respectively.
+The next line contains N integers denoting the elements of the array respectively.
+
+1 <= K <= N <= 200000
+-200000 <= A[i] <= 200000
+
+Output
+Print a single integer denoting the maximum sum of subarray of size K.
+
+Example
+
+Sample Input:
+4 2
+-1 5 2 -3
+
+Sample Output:
+7
+
+Explanation:
+Three subarrays of size 2, their sum are 4, 7, -1
+
+
+Solution:
+
+Total Number Of Subarrays in an Array of Size N = N*(N+1)/2
+
+Number Of Subarrays of Size K in an Array of Size N = N-K+1
+OR
+Number of Sliding Windows os Size K in an Array of Size N = N-K+1
+
+Understanding:
+
+a = [-1 5 2 -3]
+K = 2
+
+
+Subarrays: Sum
+
+[-1 5] = 4
+[5 2] = 7 : MAX
+[2 -3] = 1
+
+
+
+Solutions:
+
+(1) Brute Force: Two Nested Loops
+
+Generate All Subarray of Size K and find the max Sum:
+
+TC: O(N^2)
+SC: O(1)
+
+(2) Optimised Solution: Single Loop
+
+
+[-1 5 2 -3]
+K = 2
+
+Subarrays:
+
+First Subarray: [-1 5] 
+CODE: for (i=0; i<K; i++)
+
+Other Subarrays:
+
+
+[0.1....k..k+1........]
+
+First Subarray: arr[0...k]
+Next Subarray: Remove 0 and add 1
+            arr[1...k+1]
+
+Next: arr[2...k+2]
+
+
+
+
+arr = [-1 5 2 -3]
+K = 2
+
+
+Subarrays: Sum
+[-1 5] = 4
+[5 2] = 7 : MAX
+[2 -3] = -1
+
+
+CODE:
+public static int maxSum(int arr[], int n, int k)
+    {
+        int res = 0;
+        for (int i=0; i<k; i++) // O(K)
+           res += arr[i]; // res = 4
+
+
+        int currentSum = res; // currentSum = 4
+        for (int i = k; i<n; i++)  // O(N-K)
+        // i = 2; i<4; i++
+        {   // i = 2
+            // currentSum += arr[2] - arr[2-2] = arr[2] - arr[0] = 2-(-1) = 3
+            // currenSum = 4+3 = 7
+
+            // i = 3
+            // currentSum += arr[3] - arr[3-2] = arr[3] - arr[1] = -3-(5) = -8
+            // currenSum = 7-8 = -1
+           
+           currentSum += arr[i] - arr[i-k]; // Remove 0 and add 1
+                                            //  arr[1...k+1]
+           res = Math.max(res, currentSum); // res = max(4, 7) = 7
+        }
+      
+        return res; //7
+    }
+
+
+
+TC: O(N)
+SC: O(1)
+
+
+
+
+
+Q: LC - 152: Maximum Product Subarray
+https://leetcode.com/problems/maximum-product-subarray/
+
+Given an integer array nums, find a contiguous non-empty subarray within the array that has the largest product, and return the product.
+
+The test cases are generated so that the answer will fit in a 32-bit integer.
+
+A subarray is a contiguous subsequence of the array.
+
+ 
+
+Example 1:
+
+Input: nums = [2,3,-2,4]
+Output: 6
+Explanation: [2,3] has the largest product 6.
+
+Example 2:
+
+Input: nums = [-2,0,-1]
+Output: 0
+Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
+ 
+
+Constraints:
+
+1 <= nums.length <= 2 * 104
+-10 <= nums[i] <= 10
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+
+
+Input: nums = [2,3,-2,4]
+Output: 6
+Explanation: [2,3] has the largest product 6.
+
+
+
+
+Subarray: Product
+
+[2 3]     = 6
+[2 3 -2]  = -12
+[2 3 -2 4] = -48
+
+
+[3 -2]   = -6
+[3 -2 4]  = -24
+
+[-2 4]  = -8
+
+MaxAns = 6
+
+
+
+ public int maxProduct(int[] nums) 
+ {
+        
+}
+
+
+Solution:
+
+
+(1) Brute Force: Two Nested Loops
+
+- Generate All Subarrays 
+- Calculate Prod of All Subarrays
+- Find Max
+
+CODE:
+
+for (int i = 0; i < n; i++)
+    {
+        int mul = nums[i];
+        for (int j = i + 1; j < n; j++)
+        {
+            
+            result = max(result, mul);
+            mul *= nums[j];
+        }
+        result = max(result, mul);
+    }
+    return result;
+}
+
+TC: O(N^2)
+SC: O(1)
+
+
+
+(2) Optimised Solution:
+
+Trick:
+
+
+
+[2,3,-2,4]
+
+
+Subarray:
+
+
+[2 3]
+Prefix Prod : 0
+Suffix Prod:  [-2 4] = -8
+
+
+Max Product = Max(prefix_prod, suffix_prod)
+
+
+
+CODE:
+
+
+
+// Author: @devangs
+// TC: O(N)
+// SC: O(1)
+
+
+
+[2,3,-2,4]
+N = 4
+OP: 6
+
+
+class Solution {
+    public int maxProduct(int[] A) 
+    {
+        int len = A.length;
+        int prod = 1;
+        int max = Integer.MIN_VALUE;
+        int i = 0;
+        
+        for (i=0; i<len; i++)
+        {
+    // prefix_prod = prefix_prod * A[i]: Multiply from Beginning
+            max = Math.max(prod*=A[i], max); //max = 2, 6, -12, -48: max = 6 
+            
+            // Edge Case for 0 in Subarray
+            if (A[i] == 0)
+                prod = 1;            
+        }
+        
+        prod = 1;
+        
+        for (i=len-1; i>=0; i--)
+        {
+     // suffix_prod = sufix_prod * A[n-i-1]: Multiply from End
+            max = Math.max(prod*=A[i], max); // max = 4, -8, -24, -48: max = 4
+            
+            // Edge Case for 0 in Subarray
+            if (A[i] == 0)
+                prod = 1; 
+        }
+        
+        return max; // max(6,4) = 6
+    }
+}
+
+
+
+
+
+
+
+
+Date : 31st May 2022
+Mentor: DEVANG SHARMA
+Batch: March Batch 2 - DRACO
+
+
+Agenda:
+
+- Introduction to DP
+- DP vs Backtracking vs Greedy
+- DP vs Recursion- Real Life Example 
+
+
+Questions
+- Removing Chocolates- Paypal: 
+- Uncertain Steps- Google: 
+- max Steps - Amazon: 
+- [Adobe] Q: Variation of Sum of Numbers- 1,3,5: 
+
+
+2D DP:
+- Goldmine- Microsoft
+- Maximum size square sub-matrix with all 1s- Paypal
+
+- OOPS
+- Quick Sort
+- Assignment Questions
+
+"Please Type 'Hi' in the Chat Box if you have joined and Can See this Screen".
+
+
+
+
+
+
+Syllabus:
+
+DONE:  (70%)
+- Arrays
+- Matrices
+- Strings
+- Recursion
+- XOR and Bit Manipulation
+- Search
+- Stacks
+- Queues
+- Linked Lists:
+- Sorting
+
+
+30%:
+
+DP : Started
+Backtracking
+Trees
+Graphs
+
+
+
+
+
+Agenda: Dynamic Programming (DP)
+
+- DP vs Backtracking vs Greedy
+
+
+DP:
+- Optimisation Over Recursion
+- Storing the Results of previous states to avoid recalculating
+
+Backtracking:
+- Optimisation Over Recursion
+- Does Not Store Any State
+- Find All Possible Answers
+
+Greedy:
+- Find me the BEST Solution Now
+- DONT THINK ABOUT FUTURE
+
+
+
+
+
+Eg:
+
+
+Given a Matrix, 
+Calculate Max Gold Coins in the Matrix.
+
+
+Constraints: Right or Down
+
+[
+S: 1  10  20
+   100 1000 25
+   70  80   90: D 
+]
+
+
+S- D Path?
+
+
+1 10 1000 25 90: VALID
+1 10 1000 80 90: VALID
+1 100 1000 80 90: VALID: ANS
+
+
+
+
+DP: Find All S-D Valid Path and then Check for Maximum
+
+Greedy: 
+
+You are 1: 10 or 100
+
+According to Greedy, 
+ALWAYS go to 100 because MAX(10,100) = 100
+
+
+At Every Step, Choose the BEST SOLUTION there, 
+DONT THINK ABOUT FUTURE
+
+
+
+
+WORKING:
+
+[
+S: 1  10  20
+   100 1000 25
+   70  80   90: D 
+]
+
+
+Correct OP: 1 100 1000 80 90
+
+Greedy OP: 1 100 1000 80 90
+
+
+
+NOT WORKING:
+
+[
+S: 1  10  2000
+   100 1000 25
+   70  80   90: D 
+]
+
+
+
+As Per Greedy,
+
+At 1: Select 100
+After Reaching 100, Never be able to reach 2000
+
+
+Greedy does not write answer Always.
+
+
+
+
+Dynamic Programming (DP)
+
+
+For any DS/Algo:
+- What (Use Case/Problem)
+- Why (Applications)
+- How (Coding/Implementation)
+
+
+What?
+
+- Optimisation Over Recursion by "Storing the State Results to Avoid Calculating Again and Again"
+
+Why?
+
+Exponential Time Complexity ---> Polynomial Time
+(Recursive)                      (DP)
+
+O(2^N) --> O(N)
+
+
+State Variables:
+Number of Variables Determining the State of DP
+
+
+
+1-D DP: State Depends on 1 Variables
+Eg: Fibbonacci Numbers/Factorial
+
+
+2-D DP: State Depends on 2 Variables
+Eg: 0-1 Knapsack Problem
+
+
+3-D DP: State Depends on 3 Variables
+
+House of Robbers-3: LC Premium
+Round H: GKS 2019
+
+
+
+
+
+Fibbonacci Series
+
+0 1 1 2 3 5 8 13 21.....
+
+
+fib(n) = fib(n-1) + fib(n-2)
+
+Nth Term = (N-1)th Term + (N-2)th Term
+
+
+
+Take N = 5
+
+fib(5) = fib(4) + fib(3)
+fib(4) = fib(3) + fib(2)
+fib(3) = fib(2) + fib(1)
+
+.........................
+
+first = 0
+second = 1
+
+for (i = 2)..
+    a[i] = a[i-1] = a[i-2];
+
+
+TREE DIAGRAM:
+
+
+                      5 - YOU
+              x+y: 4       3        
+            (x) 3 (y)2    2  1   
+              2  1  1 0  1 0   
+GROUND       1 0  
+
+
+Real Life Example:
+
+(1) Recursion: Elder: Hard Working
+(2) DP: Younger: Lazy but Smart
+
+
+15th Aug:
+Task: Collect Sweets from All Florrs in the Building
+
+
+Recursion: Hard Worker:
+
+Start from Ground Floor: ALWAYS
+
+1st: 0-1
+2nd: 0-1-2
+3rd: 0-1-2-3
+4th: 0-1-2-3-4
+
+
+DP: Smart Worker
+
+Use a Lift
+
+1st: 0-1
+2nd: 1-2
+3rd: 2-3
+4th: 3-4
+
+
+
+Recursion: EVERYTIME leaf to root traversal for Each Node
+
+DP: Reads Values from the stored data
+
+
+
+CODE:
+
+fib(n) = fib(n-1) + fib(n-2)
+
+
+// Recursive Code
+
+int fib(int n)
+{
+    if (n<=1)
+        return n;
+
+    return fib(n-1) + fib(n-2);
+}
+
+TC: O(2^N)
+SC: O(1) - In Memory
+    O(N) - Auxiliary Memory
+
+
+// DP Code
+
+
+int fibdp(int n)
+{
+    int res[n+1]; // Storing the State Results
+    res[0] = 0;
+    res[1] = 1;
+
+    for (i=2; i<=n; i++)
+        res[i] = res[i-1] + res[i-2];
+
+    return res[n]; // Nth Fibonacci Number
+}
+
+TC:  O(N)
+SC:  O(N)
+
+
+
+0 1 1 2 3 5 8 13 21.....
+
+Calculate fib(3):
+
+Recursion: 0 1 1 2
+DP: 1+1 = 2 = fib(2) + fib(1)
+
+
+
+
+
+DP: 
+
+Store the Results of previous subproblems so that it can be used again.
+
+
+NO NEED TO RE-CALCULATE AGAIN AND AGAIN
+
+
+
+
+
+
+IMP: 
+
+How to Solve Any DP Question in World?
+
+
+
+(1) Identify:
+
+Maximum, Minimum, Shortest, Largest, Smallest, Number of Ways, 
+Count, Permutations etc etc - Mathematical Operations -- DP
+
+Eg:
+
+"Longest" Common Subsequence (LCS) between two Strings - DP
+Underlying Algo: DP
+
+Keywords: Underlying Algo
+Constraints: TC and SC
+
+(2) Decide a State Expression
+Shortcut: Replace N with K
+
+state(k) = ?
+NOTE: ALWAYS MENTIONED IN THE QUESTION
+
+(3) Formulate a State Relation - IMP
+
+- How does the current state result relates to previous state results
+
+
+state(k) ----> state(k-1) or state(k-2) etc
+
+
+(4) Optimisation - Memorisation/Memoisation (Top Down/Bottom Up)
+
+Higher Order DP: 2D and Above
+
+
+
+
+
+
+
+
+
+Q: LC - 70: Climbing Stairs
+https://leetcode.com/problems/climbing-stairs/
+
+You are climbing a staircase. It takes n steps to reach the top.
+
+Each time you can either climb 1 or 2 steps. 
+In how many distinct ways can you climb to the top?
+
+ 
+
+Example 1:
+
+Input: n = 2
+Output: 2
+Explanation: There are two ways to climb to the top.
+1. 1 step + 1 step
+2. 2 steps
+
+Example 2:
+
+Input: n = 3
+Output: 3
+Explanation: There are three ways to climb to the top.
+1. 1 step + 1 step + 1 step
+2. 1 step + 2 steps
+3. 2 steps + 1 step
+ 
+
+Constraints:
+
+1 <= n <= 45
+
+
+
+Solution:
+
+
+(1) Identify - DONE 
+"How many Ways" - DP
+
+
+(2) Decide a State Expression
+Shortcut: Replace N with K
+
+state(k) = Number of Ways to reach Kth Stair Using 1 or 2 Step
+
+Answer = state(N) = Number of Ways to reach Nth Stair Using 1 or 2 Step
+
+NOTE: ALWAYS MENTIONED IN THE QUESTION
+
+
+
+
+(3) Formulate a State Relation - IMP
+
+- How does the current state result relates to previous state results
+
+state(k) = state(k-1) + state(k-2)        
+
+
+
+
+
+Reach 5th Stair:
+
+4th Stair: 1 Step
+3rd Stair: 2 Steps
+
+
++: OR
+*: AND
+
+Number of Ways to reach 5th Stair
+= Number of Ways to reach 4th Stair
+ + (OR)
+ Number of Ways to reach 3rd Stair
+
+
+
+state(5) = state(4) + state(3)
+        = state(5-1) + state(5-2)
+
+
+state(k) = state(k-1) + state(k-2)        
+
+fib(n) = fib(n-1) + fib(n-2)
+
+
+REC: TLE
+DP: Pass All TC
+
